@@ -14,21 +14,21 @@ import { VersionState } from "@/modules/launcher";
         SOUND VOLTEX<br>
         EXCEED GEAR
         <div v-if="sdvx.GameMeta.value != undefined && !sdvx.installed()" class="tip">
-          未安装
+          Not Installed
         </div>
       </div>
       <div v-if="sdvx.GameMeta.value != undefined && sdvx.installed()" class="options">
-        <div v-if="sdvx.GameVersionState.value == VersionState.Normal" class="opt" @click="sdvx.start">启动</div>
+        <div v-if="sdvx.GameVersionState.value == VersionState.Normal" class="opt" @click="sdvx.start">Start</div>
         <div v-if="sdvx.GameVersionState.value == VersionState.Need2UpdateLauncher" class="tip opt">
-          请升级启动器
+          Please Update Launcher
         </div>
         <div v-if="sdvx.GameVersionState.value == VersionState.Need2UpdateGame" class="tip opt">
-          请升级游戏
+          Please Update Game
         </div>
-        <div class="opt" @click="sdvx.settings">游戏设置</div>
-        <div v-if="sdvx.GameVersionState.value != VersionState.Need2UpdateGame" class="opt" @click="sdvx.updater">更新器
+        <div class="opt" @click="sdvx.settings">Game Settings</div>
+        <div v-if="sdvx.GameVersionState.value != VersionState.Need2UpdateGame" class="opt" @click="sdvx.updater">Updater
         </div>
-        <div v-else class="blink opt" @click="sdvx.updater">更新器</div>
+        <div v-else class="blink opt" @click="sdvx.updater">Updater</div>
       </div>
     </div>
     <div class="game iidx" :class="{'disable': iidx.GameMeta.value == undefined}">
@@ -37,25 +37,21 @@ import { VersionState } from "@/modules/launcher";
         beatmania IIDX<br>
         INFINITAS
         <div v-if="iidx.GameMeta.value != undefined && !iidx.installed()" class="tip">
-          未安装
+          Not Installed
         </div>
       </div>
       <div v-if="iidx.GameMeta.value != undefined && iidx.installed()" class="options">
-        <div v-if="iidx.GameVersionState.value == VersionState.Normal" class="opt" @click="iidx.start">启动</div>
+        <div v-if="iidx.GameVersionState.value == VersionState.Normal" class="opt" @click="iidx.start">Start</div>
         <div v-if="iidx.GameVersionState.value == VersionState.Need2UpdateLauncher" class="tip opt">
-          请升级启动器
+          Please Update Launcher
         </div>
         <div v-if="iidx.GameVersionState.value == VersionState.Need2UpdateGame" class="tip opt">
-          请升级游戏
+          Please Update Game
         </div>
-        <RouterLink class="opt" to="/iidx/settings">额外设置</RouterLink>
-        <div class="opt" @click="iidx.settings">游戏设置</div>
-        <div v-if="iidx.GameVersionState.value != VersionState.Need2UpdateGame" class="opt" @click="iidx.updater">更新器
-        </div>
-        <div v-else class="blink opt" @click="iidx.updater">更新器</div>
-        <div class="opt" @click="iidx.openCustomize">自定义选项</div>
-        <div class="gap"></div>
-        <div class="opt small" @click="iidx.generateBat">生成快速启动 BAT</div>
+        <RouterLink class="opt" to="/iidx/settings">Extra Settings</RouterLink>
+        <div class="opt" @click="iidx.settings">Game Settings</div>
+        <div class="opt" @click="iidx.openCustomize">Customize Options</div>
+        <div class="opt small" @click="iidx.generateBat">Generate Quick Launch BAT</div>
       </div>
     </div>
     <div class="game gitadora" :class="{'disable': gitadora.GameMeta.value == undefined}">
@@ -65,24 +61,24 @@ import { VersionState } from "@/modules/launcher";
       <div class="text">
         GITADORA <br><br>
         <div v-if="gitadora.GameMeta.value != undefined && !gitadora.installed()" class="tip">
-          未安装
+          Not Installed
         </div>
         <div v-if="gitadora.GameMeta.value != undefined && gitadora.installed()" class="tip">
-          <small>请注意: 服务器暂不支持</small>
+          <small>Note: Server not currently supported</small>
         </div>
       </div>
       <div v-if="gitadora.GameMeta.value != undefined && gitadora.installed()" class="options">
-        <div v-if="gitadora.GameVersionState.value == VersionState.Normal" class="opt" @click="gitadora.start">启动</div>
+        <div v-if="gitadora.GameVersionState.value == VersionState.Normal" class="opt" @click="gitadora.start">Start</div>
         <div v-if="gitadora.GameVersionState.value == VersionState.Need2UpdateLauncher" class="tip opt">
-          请升级启动器
+          Please Update Launcher
         </div>
         <div v-if="gitadora.GameVersionState.value == VersionState.Need2UpdateGame" class="tip opt">
-          请升级游戏
+          Please Update Game
         </div>
-        <div class="opt" @click="gitadora.settings">游戏设置</div>
+        <div class="opt" @click="gitadora.settings">Game Settings</div>
         <div v-if="gitadora.GameVersionState.value != VersionState.Need2UpdateGame" class="opt"
-          @click="gitadora.updater">更新器</div>
-        <div v-else class="blink opt" @click="gitadora.updater">更新器</div>
+          @click="gitadora.updater">Updater</div>
+        <div v-else class="blink opt" @click="gitadora.updater">Updater</div>
       </div>
     </div>
     <div></div>

@@ -153,7 +153,7 @@ function updateUseGsm(e: Event) {
 
 async function save() {
     await iidx.saveConfig();
-    window.laochan.alert.show('已保存 IIDX 设置', '#40B681', 2000);
+    window.laochan.alert.show('IIDX settings saved', '#40B681', 2000);
 }
 </script>
 
@@ -162,50 +162,48 @@ async function save() {
         <div class="container">
             <h2>
                 <FontAwesomeIcon :icon="faCompactDisc"></FontAwesomeIcon>
-                INFINITAS 额外设置
+                INFINITAS Additional Settings
             </h2>
             <div class="item">
                 <h3>
                     <FontAwesomeIcon :icon="faVolumeHigh"></FontAwesomeIcon>
-                    音频输出模式
+                    Audio Output Mode
                 </h3>
                 <select class="text-input" v-bind:value="iidx.config.value?.soundMode" @change="updateSoundMode">
                     <option value="0">WASAPI</option>
                     <option value="1">ASIO</option>
                 </select>
-                <div v-if="wasapiStatus == 1">警告: 当前选择的音频设备不支持 44100 Hz 模式输出, 可能无法正常以 WASAPI 独占模式启动, 请前往<a
-                        @click="iidx.settings">游戏设置</a>关闭
-                    WASAPI 独占模式或切换输出设备。</div>
-                <div v-if="wasapiStatus < 0">警告: WASAPI 测试失败 ({{ wasapiStatus }}), 游戏很有可能无法启动。</div>
+                <div v-if="wasapiStatus == 1">Warning: Current audio device doesn't support 44100 Hz output mode. May not start properly in WASAPI exclusive mode. Please go to <a @click="iidx.settings">Game Settings</a> to disable WASAPI exclusive mode or switch output device.</div>
+                <div v-if="wasapiStatus < 0">Warning: WASAPI test failed ({{ wasapiStatus }}), game likely won't start.</div>
             </div>
             <div class="item optional" :class="{ show: iidx.config.value?.soundMode == IIDXSoundMode.Asio }">
                 <h3>
                     <FontAwesomeIcon :icon="faMicrochip"></FontAwesomeIcon>
-                    ASIO 输出设备
+                    ASIO Output Device
                 </h3>
                 <select class="text-input" v-bind:value="iidx.config.value?.asioDevice" @change="updateAsioDevice">
                     <option v-for="device in asioDeviceList" :value="device">{{ device }}</option>
                 </select>
-                <div v-if="!asioAvaliable">警告: 未检测到有效的 ASIO 输出设备, 游戏可能无法正常启动。</div>
+                <div v-if="!asioAvaliable">Warning: No valid ASIO output device detected, game may not start properly.</div>
             </div>
             <div class="item">
                 <h3>
                     <FontAwesomeIcon :icon="faDisplay"></FontAwesomeIcon>
-                    显示模式
+                    Display Mode
                 </h3>
                 <select class="text-input" v-bind:value="iidx.config.value?.displayMode" @change="updateDisplayMode">
-                    <option value="0">独占全屏</option>
-                    <option value="1">无边框窗口</option>
-                    <option value="2">窗口化</option>
+                    <option value="0">Exclusive Fullscreen</option>
+                    <option value="1">Borderless Window</option>
+                    <option value="2">Windowed</option>
                 </select>
             </div>
             <div class="item">
                 <h3>
                     <FontAwesomeIcon :icon="faComputer"></FontAwesomeIcon>
-                    图形API
+                    Graphics API
                 </h3>
                 <select class="text-input" v-bind:value="iidx.config.value?.graphicsAPI" @change="updateGraphicsAPI">
-                    <option value="0">原生D3D9</option>
+                    <option value="0">Native D3D9</option>
                     <option value="1">D3D9On12</option>
                     <option value="2">DXVK</option>
                 </select>
@@ -213,11 +211,11 @@ async function save() {
             <div class="item optional" :class="{ show: iidx.config.value?.displayMode != IIDXDisplayMode.BorderlessWindowed }">
                 <h3>
                     <FontAwesomeIcon :icon="faUpRightAndDownLeftFromCenter"></FontAwesomeIcon>
-                    显示分辨率
+                    Display Resolution
                 </h3>
                 <select class="text-input" v-bind:value="resIndex" @change="updateResoltion">
                     <option v-for="mode, i in displayModes" :value="i">
-                        <template v-if="!mode.good">(不推荐)</template>
+                        <template v-if="!mode.good">(Not Recommended)</template>
                         {{ mode.width }}x{{ mode.height }} (
                             <template v-for="rate, j in mode.rates">{{ rate }}
                                 hz<template v-if="j !== mode.rates.length - 1">, </template>
@@ -225,20 +223,18 @@ async function save() {
                         )
                     </option>
                 </select>
-                <div v-if="!has120hz && hasHighRefreshRate">警告: 显示器不支持 120 Hz 高刷模式, 请使用显卡驱动面板或者 CRU 添加 120 Hz 的刷新率模式,
-                    否则游戏将不会以高刷新率模式启动。</div>
-                <div v-if="!has60hz && !has120hz && !hasHighRefreshRate">警告: 显示器不支持游戏所需刷新率 (60Hz/120Hz),
-                    游戏可能出现音画不同步现象或无法启动。</div>
+                <div v-if="!has120hz && hasHighRefreshRate">Warning: Display doesn't support 120Hz mode. Please add 120Hz refresh rate mode using graphics driver panel or CRU, otherwise the game won't start in high refresh rate mode.</div>
+                <div v-if="!has60hz && !has120hz && !hasHighRefreshRate">Warning: Display doesn't support required refresh rates (60Hz/120Hz). Game may experience audio/video desync or fail to start.</div>
             </div>
             <div class="item">
                 <h3>
                     <FontAwesomeIcon :icon="faLanguage"></FontAwesomeIcon>
-                    游戏语言
+                    Game Language
                 </h3>
                 <select class="text-input" v-bind:value="iidx.config.value?.language" @change="updateLanguage">
-                    <option value="0">日本語</option>
+                    <option value="0">Japanese</option>
                     <option value="1">English</option>
-                    <option value="2">한국어</option>
+                    <option value="2">Korean</option>
                 </select>
             </div>
             <div class="item">
@@ -249,12 +245,12 @@ async function save() {
                 <div class="flex justify-start align-center lh-100 py-1">
                     <input id="use-gsm" type="checkbox" v-bind:checked="iidx.config.value?.useGsm"
                         @change="updateUseGsm">
-                    <label for="use-gsm">加载 2DX-GSM 模块</label>
+                    <label for="use-gsm">Load 2DX-GSM Module</label>
                 </div>
             </div>
             <div class="flex">
                 <div></div>
-                <button class="btn primary" @click="save">保存设置</button>
+                <button class="btn primary" @click="save">Save Settings</button>
             </div>
         </div>
         <div class="background"></div>

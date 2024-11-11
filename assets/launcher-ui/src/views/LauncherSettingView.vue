@@ -73,7 +73,7 @@ function updateEnableSteamOverlay(e: Event) {
 
 async function save() {
     await launcher.saveConfig();
-    window.laochan.alert.show('已保存启动器设置', '#40B681', 2000);
+    window.laochan.alert.show('Launcher Settings Saved', '#40B681', 2000);
 }
 </script>
 
@@ -82,16 +82,16 @@ async function save() {
         <div class="container">
             <h2>
                 <FontAwesomeIcon :icon="faTape"></FontAwesomeIcon>
-                佬缠网设置
+                Laochan Settings
             </h2>
             <div class="item">
                 <div class="flex">
                     <h3>
                         <FontAwesomeIcon :icon="faIdCard"></FontAwesomeIcon>
-                        登入令牌
+                        Token
                     </h3>
                     <div>
-                        <button class="btn link" @click="launcher.resetToken">重设为机器码</button>
+                        <button class="btn link" @click="launcher.resetToken">Reset to Machine Code</button>
                     </div>
                 </div>
                 <input class="text-input" type="password" v-bind:value="launcher.config.value?.token"
@@ -101,10 +101,10 @@ async function save() {
                 <div class="flex">
                     <h3>
                         <FontAwesomeIcon :icon="faServer"></FontAwesomeIcon>
-                        Bootstrap 地址
+                        Bootstrap Address
                     </h3>
                     <div>
-                        <button class="btn link" @click="launcher.resetServerUrl">重设为默认地址</button>
+                        <button class="btn link" @click="launcher.resetServerUrl">Reset to Default Address</button>
                     </div>
                 </div>
                 <input class="text-input" type="text" v-bind:value="launcher.config.value?.serverUrl"
@@ -113,57 +113,57 @@ async function save() {
             <div class="item">
                 <h3>
                     <FontAwesomeIcon :icon="faTerminal"></FontAwesomeIcon>
-                    调试控制台
+                    Debug Console
                 </h3>
                 <div class="flex justify-start align-center lh-100 py-1">
                     <input id="use-console" type="checkbox" v-bind:checked="launcher.config.value?.enableConsole"
                         @change="updateEnableConsole">
-                    <label for="use-console">启用调试控制台</label>
+                    <label for="use-console">Enable Debug Console</label>
                 </div>
                 <small>
-                    <FontAwesomeIcon :icon="faWarning"></FontAwesomeIcon>关闭调试控制台可能可以缓解性能问题
+                    <FontAwesomeIcon :icon="faWarning"></FontAwesomeIcon>Disabling debug console may help with performance issues
                 </small>
             </div>
             <div class="item">
                 <h3>
                     <FontAwesomeIcon :icon="faSteam"></FontAwesomeIcon>
-                    Steam 游戏内覆盖
+                    Steam Overlay
                 </h3>
                 <div class="flex justify-start align-center lh-100 py-1">
                     <input id="use-steam-overlay" type="checkbox"
                         v-bind:checked="launcher.config.value?.enableSteamOverlay" @change="updateEnableSteamOverlay">
-                    <label for="use-steam-overlay">启用 Steam 游戏内覆盖</label>
+                    <label for="use-steam-overlay">Enable Steam Overlay</label>
                 </div>
                 <small>
-                    <FontAwesomeIcon :icon="faWarning"></FontAwesomeIcon>关闭 Steam 游戏内覆盖可能可以缓解性能问题
+                    <FontAwesomeIcon :icon="faWarning"></FontAwesomeIcon>Disabling Steam overlay may help with performance issues
                 </small>
             </div>
             <div class="flex">
                 <div></div>
-                <button class="btn primary" @click="save">保存设置</button>
+                <button class="btn primary" @click="save">Save Settings</button>
             </div>
             <hr>
             <h2>
                 <FontAwesomeIcon :icon="faHdd"></FontAwesomeIcon>
-                游戏安装详情
+                Game Installation Details
             </h2>
             <div v-for="name, i in gameNames" class="item">
                 <h2>{{ name }}</h2>
                 <div v-if="pathes(i) != undefined">
                 <div v-if="pathes(i).installed">
-                    <h3>安装路径: <a class="path link" @click="openPath(pathes(i).install_path)">{{
+                    <h3>Installation Path: <a class="path link" @click="openPath(pathes(i).install_path)">{{
                         pathes(i).install_path
-                            }}</a></h3>
-                    <h3>资源路径: <a class="path link" @click="openPath(pathes(i).resource_path)">{{
+                    }}</a></h3>
+                    <h3>Resource Path: <a class="path link" @click="openPath(pathes(i).resource_path)">{{
                         pathes(i).resource_path
-                            }}</a></h3>
-                    <h3>游戏版本: <a class="path link">{{ pathes(i).game_module_version
-                            }}</a></h3>
-                    <h3>支持版本: <a class="path link">{{ pathes(i).game_module_target_version
-                            }}</a></h3>
+                    }}</a></h3>
+                    <h3>Game Version: <a class="path link">{{ pathes(i).game_module_version
+                    }}</a></h3>
+                    <h3>Supported Version: <a class="path link">{{ pathes(i).game_module_target_version
+                    }}</a></h3>
                 </div>
                 <div v-else>
-                    <h3 class="gray">未安装</h3>
+                    <h3 class="gray">Not Installed</h3>
                 </div>
             </div>
             <div v-else>
